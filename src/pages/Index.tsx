@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
 import BeforeAfterSlider from '@/components/BeforeAfterSlider';
+import ContactForm from '@/components/ContactForm';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -295,7 +296,11 @@ const Index = () => {
               Готовы обсудить ваш проект? Мы всегда на связи!
             </p>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div className="mb-16">
+              <ContactForm />
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 hover:bg-white/20 transition-all">
                 <Icon name="Phone" size={32} className="mx-auto mb-4" />
                 <div className="font-semibold mb-2">Телефон</div>
@@ -312,11 +317,6 @@ const Index = () => {
                 <div>Москва, ул. Строителей, 15</div>
               </div>
             </div>
-
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90 text-lg px-8">
-              <Icon name="Send" size={20} className="mr-2" />
-              Оставить заявку
-            </Button>
           </div>
         </div>
       </section>
