@@ -7,9 +7,11 @@ import ContactForm from '@/components/ContactForm';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
     setActiveSection(id);
+    setIsMobileMenuOpen(false);
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -104,12 +106,47 @@ const Index = () => {
               })}
             </div>
 
-            <Button className="bg-primary hover:bg-primary/90">
-              <Icon name="Phone" size={18} className="mr-2" />
-              Связаться
-            </Button>
+            <div className="hidden md:block">
+              <Button className="bg-primary hover:bg-primary/90">
+                <Icon name="Phone" size={18} className="mr-2" />
+                Связаться
+              </Button>
+            </div>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-2 hover:bg-muted rounded-lg transition-colors"
+              aria-label="Меню"
+            >
+              <Icon name={isMobileMenuOpen ? "X" : "Menu"} size={28} className="text-primary" />
+            </button>
           </div>
         </div>
+
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white border-t border-border animate-fade-in">
+            <div className="container mx-auto px-4 py-4 space-y-2">
+              {['Главная', 'О компании', 'Услуги', 'Портфолио', 'Контакты'].map((item, idx) => {
+                const id = ['home', 'about', 'services', 'portfolio', 'contacts'][idx];
+                return (
+                  <button
+                    key={item}
+                    onClick={() => scrollToSection(id)}
+                    className={`w-full text-left px-4 py-3 rounded-lg font-medium transition-all hover:bg-primary/10 ${
+                      activeSection === id ? 'bg-primary/10 text-primary' : 'text-foreground'
+                    }`}
+                  >
+                    {item}
+                  </button>
+                );
+              })}
+              <Button className="w-full bg-primary hover:bg-primary/90 mt-4" onClick={() => scrollToSection('contacts')}>
+                <Icon name="Phone" size={18} className="mr-2" />
+                Связаться
+              </Button>
+            </div>
+          </div>
+        )}
       </nav>
 
       <section id="home" className="pt-32 pb-20 bg-gradient-to-br from-primary/10 via-secondary/10 to-background">
